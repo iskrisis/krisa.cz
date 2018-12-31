@@ -6,29 +6,91 @@
 	<style>
 	html, body {
 		color: #56580A;
+		font-size: 100%;
+		overflow-wrap: break-word;
 	}	
+	
+		@media only screen and (max-width: 1024px) {
+			html, body {
+				font-size: 100%;
+	
+			}
+		}
+
+	@media only screen and (max-width: 850px) {
+		html, body {
+			font-size: 90%;
+
+		}
+	}
+
+
+	@media only screen and (max-width: 600px) {
+		html, body {
+			font-size: 75%;
+
+		}
+	}
+
+
 	h1	{
 			font-family: "Times New Roman", Times, serif;
 			font-weight: 200;
-			font-size: 9rem;
-			letter-spacing: -0.08em;
+			font-size: 5rem;
+			letter-spacing: -0.06em;
 			margin: 0;
-			line-height: 0.9;
+			line-height:4.4rem;
 	}
-	p {
-		font-size: 3.5rem;
-		font-family: Arial, sans-serif;
-		margin: 0;
-		letter-spacing: -0.04em;
+	a {
+		color:#56580A;
+		text-decoration: none;
+	}
+	.designicek {
+
+
+	}
+	#emo {
+		font-size: 3.7rem;
+	}
+	.ita {
+		font-family:'Times New Roman', Times, serif;
+		font-style:italic; 
+		font-size: 5rem;
+
 	}
 	</style>
 </head>
 <body>
-	<p>My expected time to live</p>
-	<h1><span id="theClock">s</span><br></h1>
-	<p style="margin-top: 1em;">Till that time i do desgin+development. <br>krisa@krisa.cz</p>
+	<h1>My predicted expected time to live is <span id="theClock"></span>. <span id="emo"></span>	<span class="designicek">I do <span class="ita">design+development</span> in the meantime. <br><a href="mailto:krisa@krisa.cz">krisa@krisa.cz</a></span></h1>
 	<script>
+			// U+1F643
+			var emos = ['&#x1F610', '&#x1F611', '&#x1F636', '&#x1F644', ' &#x1F623', '&#x1F625', '&#x1F62E', '&#x1F62B', '&#x1F612', '&#x1F614', '&#x1F615', '&#x1F643'];
+			var emo = document.getElementById('emo');
+			var emonum = 0;
+			function switchEmo() {
+				emo.innerHTML = emos[emonum];
+				if(emonum >= emos.length - 1) {
+					emonum = 0;
+					shuffle(emos);
+				} else {
+					emonum = emonum + 1;
+				}
+				 
+			}
+			switchEmo();
+
 			var theClock = document.getElementById('theClock');
+
+			function setTheClock() {
+				var t = getTimeRemaining(new Date(2064, 7, 3, 6, 3, 4))
+				// theClock.innerHTML=t.days + "&nbsp;days " + t.hours + "&nbsp;hours "+ t.minutes  + "&nbsp;minutes " + t.seconds + "&nbsp;seconds";
+				theClock.innerHTML=t.days + " days " + t.hours + " hours "+ t.minutes  + " minutes " + t.seconds + " seconds";
+			}
+
+			setTheClock();
+			  
+			setInterval(setTheClock, 1000);
+			setInterval(switchEmo, 400);
 
 			function getTimeRemaining(endtime){
 				var t = Date.parse(endtime) - Date.parse(new Date());
@@ -44,15 +106,16 @@
 				  'seconds': seconds
 				};
 			}
-			  
-			function setTheClock() {
-				var t = getTimeRemaining(new Date(2064, 7, 3, 6, 3, 4))
-				theClock.innerHTML=t.days + "&nbsp;days " + t.hours + "&nbsp;hours "+ t.minutes  + "&nbsp;minutes " + t.seconds + "&nbsp;seconds";
+			function shuffle(a) {
+				var j, x, i;
+				for (i = a.length - 1; i > 0; i--) {
+					j = Math.floor(Math.random() * (i + 1));
+					x = a[i];
+					a[i] = a[j];
+					a[j] = x;
+				}
+				return a;
 			}
-
-			setTheClock();
-			  
-			setInterval(setTheClock, 1000);
 		
 	</script>
 </body>
